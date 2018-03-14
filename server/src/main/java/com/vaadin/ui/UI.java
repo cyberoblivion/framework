@@ -737,7 +737,7 @@ public abstract class UI extends AbstractSingleComponentContainer
 
         getPage().init(request);
 
-        String uiPathInfo = (String) request
+        String uiPathInfo = request.getContextPath() + request
                 .getAttribute(ApplicationConstants.UI_ROOT_PATH);
         if (uiPathInfo != null) {
             setUiPathInfo(uiPathInfo);
