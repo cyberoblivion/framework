@@ -13,7 +13,6 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-
 package com.vaadin.ui;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
@@ -312,8 +311,7 @@ public abstract class UI extends AbstractSingleComponentContainer
      * Creates a new UI with the given component (often a layout) as its
      * content.
      *
-     * @param content
-     *            the component to use as this UIs content.
+     * @param content the component to use as this UIs content.
      *
      * @see #setContent(Component)
      */
@@ -409,8 +407,8 @@ public abstract class UI extends AbstractSingleComponentContainer
     /**
      * Fire a click event to all click listeners.
      *
-     * @param object
-     *            The raw "value" of the variable change from the client side.
+     * @param object The raw "value" of the variable change from the client
+     * side.
      */
     private void fireClick(Map<String, Object> parameters) {
         MouseEventDetails mouseDetails = MouseEventDetails
@@ -421,8 +419,8 @@ public abstract class UI extends AbstractSingleComponentContainer
     /**
      * Fire a window order event.
      *
-     * @param windows
-     *            The windows with their orders whose order has been updated.
+     * @param windows The windows with their orders whose order has been
+     * updated.
      */
     private void fireWindowOrder(Map<Integer, Window> windows) {
         for (Entry<Integer, Window> entry : windows.entrySet()) {
@@ -483,11 +481,9 @@ public abstract class UI extends AbstractSingleComponentContainer
      * UI, see {@link #close()}.
      * </p>
      *
-     * @param session
-     *            the session to set
+     * @param session the session to set
      *
-     * @throws IllegalStateException
-     *             if the session has already been set
+     * @throws IllegalStateException if the session has already been set
      *
      * @see #getSession()
      */
@@ -498,9 +494,9 @@ public abstract class UI extends AbstractSingleComponentContainer
         } else if (session != null && this.session != null) {
             throw new IllegalStateException(
                     "Session has already been set. Old session: "
-                            + getSessionDetails(this.session)
-                            + ". New session: " + getSessionDetails(session)
-                            + ".");
+                    + getSessionDetails(this.session)
+                    + ". New session: " + getSessionDetails(session)
+                    + ".");
         } else {
             if (session == null) {
                 try {
@@ -563,10 +559,10 @@ public abstract class UI extends AbstractSingleComponentContainer
      * or tab, you should instead use a {@link UIProvider}.
      *
      * @param window
-     * @throws IllegalArgumentException
-     *             if the window is already added to an application
-     * @throws NullPointerException
-     *             if the given <code>Window</code> is <code>null</code>.
+     * @throws IllegalArgumentException if the window is already added to an
+     * application
+     * @throws NullPointerException if the given <code>Window</code> is
+     * <code>null</code>.
      */
     public void addWindow(Window window)
             throws IllegalArgumentException, NullPointerException {
@@ -586,8 +582,7 @@ public abstract class UI extends AbstractSingleComponentContainer
     /**
      * Helper method to attach a window.
      *
-     * @param w
-     *            the window to add
+     * @param w the window to add
      */
     private void attachWindow(Window w) {
         windows.add(w);
@@ -605,8 +600,7 @@ public abstract class UI extends AbstractSingleComponentContainer
      * Since Vaadin 6.5, returns a boolean indicating if the window was removed
      * or not.
      *
-     * @param window
-     *            Window to be removed.
+     * @param window Window to be removed.
      * @return true if the subwindow was removed, false otherwise
      */
     public boolean removeWindow(Window window) {
@@ -670,8 +664,7 @@ public abstract class UI extends AbstractSingleComponentContainer
      * To focus component from Vaadin application, use Focusable.focus(). See
      * {@link Focusable}.
      *
-     * @param focusable
-     *            to be focused on next paint
+     * @param focusable to be focused on next paint
      */
     public void setFocusedComponent(Focusable focusable) {
         pendingFocus = focusable;
@@ -683,10 +676,9 @@ public abstract class UI extends AbstractSingleComponentContainer
      * so the component is visible to the user. The given component must belong
      * to this UI.
      *
-     * @param component
-     *            the component to be scrolled into view
-     * @throws IllegalArgumentException
-     *             if {@code component} does not belong to this UI
+     * @param component the component to be scrolled into view
+     * @throws IllegalArgumentException if {@code component} does not belong to
+     * this UI
      */
     public void scrollIntoView(Component component)
             throws IllegalArgumentException {
@@ -703,13 +695,10 @@ public abstract class UI extends AbstractSingleComponentContainer
      * not declared as final because that would break compatibility with e.g.
      * CDI.
      *
-     * @param request
-     *            the initialization request
-     * @param uiId
-     *            the id of the new ui
-     * @param embedId
-     *            the embed id of this UI, or <code>null</code> if no id is
-     *            known
+     * @param request the initialization request
+     * @param uiId the id of the new ui
+     * @param embedId the embed id of this UI, or <code>null</code> if no id is
+     * known
      *
      * @see #getUIId()
      * @see #getEmbedId()
@@ -737,8 +726,9 @@ public abstract class UI extends AbstractSingleComponentContainer
 
         getPage().init(request);
 
-        String uiPathInfo = (String) request
-                .getAttribute(ApplicationConstants.UI_ROOT_PATH);
+        String uiPathInfo = request.getContextPath() + (request
+                .getAttribute(ApplicationConstants.UI_ROOT_PATH) == null ? "/" : request
+                .getAttribute(ApplicationConstants.UI_ROOT_PATH));
         if (uiPathInfo != null) {
             setUiPathInfo(uiPathInfo);
         }
@@ -787,7 +777,7 @@ public abstract class UI extends AbstractSingleComponentContainer
      * without possible view identifiers or path parameters.
      *
      * @return the part of path (from browser's URL) that points to this UI,
-     *         without possible view identifiers or path parameters
+     * without possible view identifiers or path parameters
      *
      * @since 8.2
      */
@@ -811,7 +801,7 @@ public abstract class UI extends AbstractSingleComponentContainer
      * be {@code /MyUI}.
      *
      * @return the path info part of the request; {@code null} if no request
-     *         from client has been processed
+     * from client has been processed
      *
      * @since 8.2
      */
@@ -829,8 +819,7 @@ public abstract class UI extends AbstractSingleComponentContainer
      * request that caused this UI to be created.
      * </p>
      *
-     * @param request
-     *            the Vaadin request that caused this UI to be created
+     * @param request the Vaadin request that caused this UI to be created
      */
     protected abstract void init(VaadinRequest request);
 
@@ -838,8 +827,7 @@ public abstract class UI extends AbstractSingleComponentContainer
      * Internal reinitialization method, should not be overridden.
      *
      * @since 7.2
-     * @param request
-     *            the request that caused this UI to be reloaded
+     * @param request the request that caused this UI to be reloaded
      */
     public void doRefresh(VaadinRequest request) {
         // This is a horrible hack. We want to have the most recent location and
@@ -882,8 +870,7 @@ public abstract class UI extends AbstractSingleComponentContainer
      * request that caused this UI to be reloaded.
      *
      * @since 7.2
-     * @param request
-     *            the request that caused this UI to be reloaded
+     * @param request the request that caused this UI to be reloaded
      */
     protected void refresh(VaadinRequest request) {
     }
@@ -900,8 +887,7 @@ public abstract class UI extends AbstractSingleComponentContainer
      * The UI is stored using a weak reference to avoid leaking memory in case
      * it is not explicitly cleared.
      *
-     * @param ui
-     *            the UI to register as the current UI
+     * @param ui the UI to register as the current UI
      *
      * @see #getCurrent()
      * @see ThreadLocal
@@ -1013,9 +999,8 @@ public abstract class UI extends AbstractSingleComponentContainer
      * used to avoid a large number of events during resize.
      * </p>
      *
-     * @param resizeLazy
-     *            true to use a delay before recalculating sizes, false to
-     *            calculate immediately.
+     * @param resizeLazy true to use a delay before recalculating sizes, false
+     * to calculate immediately.
      */
     public void setResizeLazy(boolean resizeLazy) {
         this.resizeLazy = resizeLazy;
@@ -1026,7 +1011,7 @@ public abstract class UI extends AbstractSingleComponentContainer
      * Checks whether lazy resize is enabled.
      *
      * @return <code>true</code> if lazy resize is enabled, <code>false</code>
-     *         if lazy resize is not enabled
+     * if lazy resize is not enabled
      */
     public boolean isResizeLazy() {
         return resizeLazy;
@@ -1040,8 +1025,7 @@ public abstract class UI extends AbstractSingleComponentContainer
      *
      * @see Registration
      *
-     * @param listener
-     *            The listener to add, not null
+     * @param listener The listener to add, not null
      * @return a registration object for removing the listener
      * @since 8.0
      */
@@ -1054,12 +1038,11 @@ public abstract class UI extends AbstractSingleComponentContainer
      * Remove a click listener from the UI. The listener should earlier have
      * been added using {@link #addListener(ClickListener)}.
      *
-     * @param listener
-     *            The listener to remove
+     * @param listener The listener to remove
      *
      * @deprecated As of 8.0, replaced by {@link Registration#remove()} in the
-     *             registration object returned from
-     *             {@link #removeClickListener(ClickListener)}.
+     * registration object returned from
+     * {@link #removeClickListener(ClickListener)}.
      */
     @Deprecated
     public void removeClickListener(ClickListener listener) {
@@ -1123,11 +1106,10 @@ public abstract class UI extends AbstractSingleComponentContainer
      * @see #showNotification(Notification)
      * @see Notification
      *
-     * @param caption
-     *            The message
+     * @param caption The message
      *
      * @deprecated As of 7.0, use Notification.show instead but be aware that
-     *             Notification.show does not allow HTML.
+     * Notification.show does not allow HTML.
      */
     @Deprecated
     public void showNotification(String caption) {
@@ -1147,13 +1129,11 @@ public abstract class UI extends AbstractSingleComponentContainer
      * @see #showNotification(Notification)
      * @see Notification
      *
-     * @param caption
-     *            The message
-     * @param type
-     *            The message type
+     * @param caption The message
+     * @param type The message type
      *
      * @deprecated As of 7.0, use Notification.show instead but be aware that
-     *             Notification.show does not allow HTML.
+     * Notification.show does not allow HTML.
      */
     @Deprecated
     public void showNotification(String caption, Notification.Type type) {
@@ -1173,13 +1153,11 @@ public abstract class UI extends AbstractSingleComponentContainer
      * @see #showNotification(Notification)
      * @see Notification
      *
-     * @param caption
-     *            The caption of the message
-     * @param description
-     *            The message description
+     * @param caption The caption of the message
+     * @param description The message description
      *
      * @deprecated As of 7.0, use new Notification(...).show(Page) instead but
-     *             be aware that HTML by default not allowed.
+     * be aware that HTML by default not allowed.
      */
     @Deprecated
     public void showNotification(String caption, String description) {
@@ -1200,15 +1178,12 @@ public abstract class UI extends AbstractSingleComponentContainer
      * @see #showNotification(Notification)
      * @see Notification
      *
-     * @param caption
-     *            The caption of the message
-     * @param description
-     *            The message description
-     * @param type
-     *            The message type
+     * @param caption The caption of the message
+     * @param description The message description
+     * @param type The message type
      *
      * @deprecated As of 7.0, use new Notification(...).show(Page) instead but
-     *             be aware that HTML by default not allowed.
+     * be aware that HTML by default not allowed.
      */
     @Deprecated
     public void showNotification(String caption, String description,
@@ -1231,15 +1206,11 @@ public abstract class UI extends AbstractSingleComponentContainer
      * @see #showNotification(Notification)
      * @see Notification
      *
-     * @param caption
-     *            The message caption
-     * @param description
-     *            The message description
-     * @param type
-     *            The type of message
-     * @param htmlContentAllowed
-     *            Whether html in the caption and description should be
-     *            displayed as html or as plain text
+     * @param caption The message caption
+     * @param description The message description
+     * @param type The type of message
+     * @param htmlContentAllowed Whether html in the caption and description
+     * should be displayed as html or as plain text
      *
      * @deprecated As of 7.0, use new Notification(...).show(Page).
      */
@@ -1259,8 +1230,7 @@ public abstract class UI extends AbstractSingleComponentContainer
      * @see #showNotification(String, String)
      * @see #showNotification(String, String, int)
      *
-     * @param notification
-     *            The notification message to show
+     * @param notification The notification message to show
      *
      * @deprecated As of 7.0, use Notification.show instead
      */
@@ -1279,7 +1249,7 @@ public abstract class UI extends AbstractSingleComponentContainer
      * @see VaadinService#closeInactiveUIs(VaadinSession)
      *
      * @return The time the last heartbeat request occurred, in milliseconds
-     *         since the epoch.
+     * since the epoch.
      */
     public long getLastHeartbeatTimestamp() {
         return lastHeartbeatTimestamp;
@@ -1294,9 +1264,8 @@ public abstract class UI extends AbstractSingleComponentContainer
      * should be taken since this method might be called in situations where
      * {@link UI#getCurrent()} does not return this UI.
      *
-     * @param lastHeartbeat
-     *            The time the last heartbeat request occurred, in milliseconds
-     *            since the epoch.
+     * @param lastHeartbeat The time the last heartbeat request occurred, in
+     * milliseconds since the epoch.
      */
     public void setLastHeartbeatTimestamp(long lastHeartbeat) {
         lastHeartbeatTimestamp = lastHeartbeat;
@@ -1323,8 +1292,7 @@ public abstract class UI extends AbstractSingleComponentContainer
      * are still using it.
      *
      * @since 7.3
-     * @param theme
-     *            The new theme name
+     * @param theme The new theme name
      */
     public void setTheme(String theme) {
         if (theme == null) {
@@ -1467,13 +1435,11 @@ public abstract class UI extends AbstractSingleComponentContainer
      *
      * @since 7.1
      *
-     * @param runnable
-     *            the runnable which accesses the UI
-     * @throws UIDetachedException
-     *             if the UI is not attached to a session (and locking can
-     *             therefore not be done)
-     * @throws IllegalStateException
-     *             if the current thread holds the lock for another session
+     * @param runnable the runnable which accesses the UI
+     * @throws UIDetachedException if the UI is not attached to a session (and
+     * locking can therefore not be done)
+     * @throws IllegalStateException if the current thread holds the lock for
+     * another session
      *
      * @see #access(Runnable)
      * @see VaadinSession#accessSynchronously(Runnable)
@@ -1544,13 +1510,11 @@ public abstract class UI extends AbstractSingleComponentContainer
      *
      * @since 7.1
      *
-     * @param runnable
-     *            the runnable which accesses the UI
-     * @throws UIDetachedException
-     *             if the UI is not attached to a session (and locking can
-     *             therefore not be done)
+     * @param runnable the runnable which accesses the UI
+     * @throws UIDetachedException if the UI is not attached to a session (and
+     * locking can therefore not be done)
      * @return a future that can be used to check for task completion and to
-     *         cancel the task
+     * cancel the task
      */
     public Future<Void> access(final Runnable runnable) {
         VaadinSession session = getSession();
@@ -1632,10 +1596,8 @@ public abstract class UI extends AbstractSingleComponentContainer
      * attached component or extension. The recommended way of fulfilling these
      * conditions is to use {@link #access(Runnable)}.
      *
-     * @throws IllegalStateException
-     *             if push is disabled.
-     * @throws UIDetachedException
-     *             if this UI is not attached to a session.
+     * @throws IllegalStateException if push is disabled.
+     * @throws UIDetachedException if this UI is not attached to a session.
      *
      * @see #getPushConfiguration()
      *
@@ -1678,7 +1640,7 @@ public abstract class UI extends AbstractSingleComponentContainer
      * {@link UI#getCurrent()} does not return this UI.
      *
      * @return the push connection used by this UI, or {@code null} if push is
-     *         not available.
+     * not available.
      */
     public PushConnection getPushConnection() {
         assert !(getPushConfiguration().getPushMode().isEnabled()
@@ -1693,8 +1655,7 @@ public abstract class UI extends AbstractSingleComponentContainer
      * The {@code pushConnection} argument must be non-null if and only if
      * {@code getPushConfiguration().getPushMode().isEnabled()}.
      *
-     * @param pushConnection
-     *            the push connection to use for this UI
+     * @param pushConnection the push connection to use for this UI
      */
     public void setPushConnection(PushConnection pushConnection) {
         // If pushMode is disabled then there should never be a pushConnection;
@@ -1726,9 +1687,8 @@ public abstract class UI extends AbstractSingleComponentContainer
      * directly, rather instruct the user to set it.
      * </p>
      *
-     * @param intervalInMillis
-     *            The interval (in ms) with which the UI should poll the server
-     *            or -1 to disable polling
+     * @param intervalInMillis The interval (in ms) with which the UI should
+     * poll the server or -1 to disable polling
      */
     public void setPollInterval(int intervalInMillis) {
         getState().pollInterval = intervalInMillis;
@@ -1738,7 +1698,7 @@ public abstract class UI extends AbstractSingleComponentContainer
      * Returns the interval with which the UI polls the server.
      *
      * @return The interval (in ms) with which the UI polls the server or -1 if
-     *         polling is disabled
+     * polling is disabled
      */
     public int getPollInterval() {
         return getState(false).pollInterval;
@@ -1794,8 +1754,7 @@ public abstract class UI extends AbstractSingleComponentContainer
      * reachable for them.
      * </p>
      *
-     * @param overlayContainerLabel
-     *            label to use for the container
+     * @param overlayContainerLabel label to use for the container
      */
     public void setOverlayContainerLabel(String overlayContainerLabel) {
         getState().overlayContainerLabel = overlayContainerLabel;
@@ -1835,7 +1794,7 @@ public abstract class UI extends AbstractSingleComponentContainer
      * Used internally for communication tracking.
      *
      * @return lastProcessedServerMessageId the id of the last processed server
-     *         message
+     * message
      * @since 7.6
      */
     public int getLastProcessedClientToServerId() {
@@ -1847,8 +1806,8 @@ public abstract class UI extends AbstractSingleComponentContainer
      *
      * Used internally for communication tracking.
      *
-     * @param lastProcessedClientToServerId
-     *            the id of the last processed server message
+     * @param lastProcessedClientToServerId the id of the last processed server
+     * message
      * @since 7.6
      */
     public void setLastProcessedClientToServerId(
@@ -1868,8 +1827,7 @@ public abstract class UI extends AbstractSingleComponentContainer
      *
      * @see Window#addWindowOrderChangeListener(WindowOrderChangeListener)
      *
-     * @param listener
-     *            the WindowModeChangeListener to add.
+     * @param listener the WindowModeChangeListener to add.
      * @since 8.0
      *
      * @return a registration object for removing the listener
@@ -1885,8 +1843,7 @@ public abstract class UI extends AbstractSingleComponentContainer
     /**
      * Sets the drag source of an active HTML5 drag event.
      *
-     * @param extension
-     *            Extension of the drag source component.
+     * @param extension Extension of the drag source component.
      * @see DragSourceExtension
      * @since 8.1
      */
@@ -1899,7 +1856,7 @@ public abstract class UI extends AbstractSingleComponentContainer
      * Gets the drag source of an active HTML5 drag event.
      *
      * @return Extension of the drag source component if the drag event is
-     *         active and originated from this UI, {@literal null} otherwise.
+     * active and originated from this UI, {@literal null} otherwise.
      * @see DragSourceExtension
      * @since 8.1
      */
@@ -1939,8 +1896,7 @@ public abstract class UI extends AbstractSingleComponentContainer
      * explicitly removed to make sure user cannot perform DnD operations
      * anymore.</em>
      *
-     * @param enabled
-     *            {@code true} if enabled, {@code false} if not
+     * @param enabled {@code true} if enabled, {@code false} if not
      * @since 8.1
      */
     public void setMobileHtml5DndEnabled(boolean enabled) {
